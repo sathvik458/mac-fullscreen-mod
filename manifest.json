@@ -1,0 +1,6 @@
+{
+  "manifest_version": 3,
+  "name": "Mac Full Screen Scale",
+  "version": "0.1.0",
+  "description": "Zooms 16:9 videos to fill the 16:10 Mac screen so the bezels feel thinner."
+}
