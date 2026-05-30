@@ -1,25 +1,52 @@
 // content.js
-// This script runs on every webpage. For now it just tries to
-// find the <video> tags on the page so I know it actually works.
+// Find <video> tags and zoom them so a 16:9 video fills a 16:10 Mac screen.
+//
+// Why 1.1111? 16/9 = 1.7778 and 16/10 = 1.6. To make the video as TALL
+// as the screen we have to grow it by 1.7778 / 1.6 = 1.1111 on the Y axis.
+// I scale both axes by the same factor and let the sides go slightly off
+// screen - that way it does not look stretched.
 
 console.log("mac-full-screen-scale: content script loaded");
 
-// look for videos right away
+var SCALE_FACTOR = 1.1111;
+
 function findVideos() {
-  var videos = document.querySelectorAll("video");
-  console.log("mac-full-screen-scale: found " + videos.length + " video(s)");
-  return videos;
+  return document.querySelectorAll("video");
 }
 
-findVideos();
+function scaleVideo(v) {
+  // do not scale twice
+  if (v.dataset.macScaled === "1") {
+    return;
+  }
+  v.style.transform = "scale(" + SCALE_FACTOR + ")";
+  v.style.transformOrigin = "center center";
+  v.dataset.macScaled = "1";
+  console.log("mac-full-screen-scale: scaled a video");
+}
 
-// some sites (like YouTube) load the video after the page is ready,
-// so check again a few times.
+function scaleAll() {
+  var videos = findVideos();
+  for (var i = 0; i < videos.length; i = i + 1) {
+    scaleVideo(videos[i]);
+  }
+}
+
+// only scale when the page is in fullscreen, otherwise it looks weird
+document.addEventListener("fullscreenchange", function () {
+  if (document.fullscreenElement) {
+    scaleAll();
+  }
+});
+
+// also keep trying in case a video loads late
 var tries = 0;
 var timer = setInterval(function () {
   tries = tries + 1;
-  var videos = findVideos();
-  if (videos.length > 0 || tries > 10) {
+  if (document.fullscreenElement) {
+    scaleAll();
+  }
+  if (tries > 30) {
     clearInterval(timer);
   }
 }, 1000);
