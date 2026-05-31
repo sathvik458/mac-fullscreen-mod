@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Mac Full Screen Scale</title>
+    <style>
+      body { font-family: -apple-system, sans-serif; width: 220px; padding: 14px; }
+      h1   { font-size: 14px; margin: 0 0 10px 0; }
+      label { display: block; margin: 8px 0; font-size: 13px; }
+      select { width: 100%; padding: 4px; }
+    </style>
+  </head>
+  <body>
+    <h1>Mac Full Screen Scale</h1>
+
+    <label>
+      <input type="checkbox" id="enabled" />
+      Scale videos in fullscreen
+    </label>
+
+    <label>
+      Preset:
+      <select id="preset">
+        <option value="1.1111">16:9 to 16:10 (Mac default)</option>
+        <option value="1.0">Off (1.00x)</option>
+        <option value="1.2">A bit more zoom (1.20x)</option>
+      </select>
+    </label>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

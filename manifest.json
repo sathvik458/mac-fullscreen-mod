@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Mac Full Screen Scale",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "description": "Zooms 16:9 videos to fill the 16:10 Mac screen so the bezels feel thinner.",
   "content_scripts": [
     {
@@ -9,5 +9,10 @@
       "js": ["content.js"],
       "run_at": "document_idle"
     }
-  ]
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Mac Full Screen Scale"
+  },
+  "permissions": ["storage", "activeTab"]
 }
