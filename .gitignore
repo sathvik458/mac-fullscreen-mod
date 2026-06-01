@@ -1,3 +1,5 @@
 .git_old/
 .git_busted_*/
 .DS_Store
+*.log
+node_modules/
